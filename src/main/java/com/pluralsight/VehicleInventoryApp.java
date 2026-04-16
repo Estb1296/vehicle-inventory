@@ -11,38 +11,45 @@ public class VehicleInventoryApp {
         vehicles[4] = new Vehicle(101125, "Subaru Outback", "Green", 55000, 14500.00f);
         vehicles[5] = new Vehicle(101126, "Jeep Wrangler", "Yellow", 30000, 16000.00f);
         //vehicles[0].displayAllVehicles(vehicles);
-        int counter = vehicles.length;
-        System.out.println(counter);
-        int option = menu(input);
-        System.out.println(option);
-        while(option==1||option==2||option==3||option==4||option==5){
+        int option;
+
+
+
+        //System.out.println(option);
+        boolean isRunning = true;
+        while(isRunning){
+            option = menu(input);
             if(option==1) {
                 Vehicle.displayAllVehicles(vehicles);
-                   // listAllVehicles();
-                    }
-           else if (option==2) {
-                    //findVehiclesByPrice();
             }
-            else if (option==3) {
+            else if (option==2) {
+                Vehicle searchVehicleModel = new Vehicle(0, "", "", 0, 0.0f);
+                searchVehicleModel.searchVehicleModelByPrompt(input, vehicles);
             }
-            else if(option==4){
-                    }
+            else if(option==3){
+                Vehicle searchVehiclePriceRange = new Vehicle(0, "", "", 0, 0.0f);
+                searchVehiclePriceRange.searchVehicleByPriceRangePrompt(input, vehicles);
+            }
+            else if (option==4) {
+                Vehicle searchVehicleColor = new Vehicle(0, "", "", 0, 0.0f);
+                searchVehicleColor.searchVehicleColorByPrompt(input, vehicles);
+            }
             else if(option==5){
                 Vehicle newVehicle = new Vehicle(0, "", "", 0, 0.0f);
-                newVehicle.addAVehicle(vehicles);
+                newVehicle.addAVehicle();
                 for(int i = 0; i < vehicles.length; i++) {
                     if(vehicles[i] == null) {
                         vehicles[i] = newVehicle;
                         break;
                     }
-
-                    // addAVehicle();
+                }
             }
+            else if(option==6){
+                isRunning = false;
             }
             else{
-                break;
+                System.out.println("Invalid entry please try again.");
             }
-            option=menu(input);
         }
         //System.out.println(option);
         input.close();
@@ -56,7 +63,8 @@ public class VehicleInventoryApp {
         System.out.println(" 5 - Add a vehicle");
         System.out.println(" 6 - Quit");
         System.out.println("Enter your command: ");
-        int command = input.nextInt();
+        int command;
+        command = input.nextInt();
         return command;
     }
 }

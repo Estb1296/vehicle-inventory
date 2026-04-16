@@ -9,13 +9,7 @@ public class Vehicle {
    private  int odometerReading;
     private float price;
     Scanner input=new Scanner(System.in);
-    public Vehicle(){
-        this.vehicleId = 0;
-        this.makeModel = "";
-        this.color = "";
-        this.odometerReading = 0;
-        this.price = 0.0f;
-    }
+
     public Vehicle(long vehicleId, String makeModel, String color, int odometerReading, float price){
         this.vehicleId=vehicleId;
         this.makeModel=makeModel;
@@ -25,26 +19,32 @@ public class Vehicle {
     }
     public  static void displayAllVehicles(Vehicle[] vehicles) {
         System.out.println("=====All vehicles======");
-        for (Vehicle v : vehicles) {
+        int counter=0;
+        for (int i = 0; i < vehicles.length; i++) {
+            Vehicle v = vehicles[i];
             if (v != null) {
                 System.out.println("ID: " + v.getVehicleId() + ", Model: " + v.getMakeModel() + ", Color: " + v.getColor() + ", Odometer: " + v.getOdometerReading() + ", Price: $" + v.getPrice());
+                counter=i+1;
             }
+//
         }
+//
+        System.out.println(counter+" is the amount of vehicles in inventory.");
     }
-public void addAVehicle(Vehicle[] vehicles){
-prompt(input,vehicles);
+public void addAVehicle(){
+prompt(input);
 }
-    public long getVehicleId() {
-        return vehicleId;
-    }
+public long getVehicleId() {
+    return vehicleId;
+}
 
-    public void setVehicleId(long vehicleId) {
-        this.vehicleId = vehicleId;
-    }
+public void setVehicleId(long vehicleId) {
+    this.vehicleId = vehicleId;
+}
 
-    public String getMakeModel() {
-        return makeModel;
-    }
+public String getMakeModel() {
+    return makeModel;
+}
 
     public void setMakeModel(String makeModel) {
         this.makeModel = makeModel;
@@ -73,7 +73,7 @@ prompt(input,vehicles);
     public void setPrice(float price) {
         this.price = price;
     }
-    public void prompt(Scanner input,Vehicle[] vehicles){
+    public void prompt(Scanner input){
         System.out.println("What is the vehicleId?: ");
         this.setVehicleId(input.nextLong());
 
@@ -94,4 +94,41 @@ prompt(input,vehicles);
         this.setPrice(input.nextFloat());
         System.out.println();
     }
+    public void searchVehicleByPriceRangePrompt(Scanner input,Vehicle[] vehicles){
+        System.out.print("Enter the highest amount you can pay: $");
+        input.nextLine();
+        float max=(input.nextFloat());
+        System.out.print("Enter the lowest amount you want to pay: $");
+        float min=(input.nextFloat());
+        boolean matchFound=false;
+        for(Vehicle vehicle:vehicles){
+            if(vehicle!=null&&vehicle.getPrice()>=min&&vehicle.getPrice()<=max){
+                System.out.println("ID: " + vehicle.getVehicleId() + ", Model: " + vehicle.getMakeModel() + ", Color: " + vehicle.getColor() + ", Odometer: " + vehicle.getOdometerReading() + ", Price: $" + vehicle.getPrice());
+                matchFound=true;
+            }
+        }
+        if(!matchFound){
+            System.out.println("We don't have a car in the price range you are looking for");
+        }
+    }
+    public void searchVehicleModelByPrompt(Scanner input,Vehicle[] vehicles){
+        System.out.print("Enter Make/Model you are looking for ");
+        input.nextLine();
+        makeModel=input.nextLine();
+        for(Vehicle vehicle:vehicles){
+            if(vehicle!=null&& makeModel.equalsIgnoreCase(vehicle.getMakeModel())){
+                System.out.println("ID: " + vehicle.getVehicleId() + ", Model: " + vehicle.getMakeModel() + ", Color: " + vehicle.getColor() + ", Odometer: " + vehicle.getOdometerReading() + ", Price: $" + vehicle.getPrice());
+            }
+        }
+     }
+     public void searchVehicleColorByPrompt(Scanner input,Vehicle[] vehicles){
+         System.out.print("Enter the color you are looking for ");
+         input.nextLine();
+         color=input.nextLine();
+         for(Vehicle vehicle:vehicles){
+             if(vehicle!=null&& color.equalsIgnoreCase(vehicle.getColor())){
+                 System.out.println("ID: " + vehicle.getVehicleId() + ", Model: " + vehicle.getMakeModel() + ", Color: " + vehicle.getColor() + ", Odometer: " + vehicle.getOdometerReading() + ", Price: $" + vehicle.getPrice());
+             }
+         }
+     }
 }
