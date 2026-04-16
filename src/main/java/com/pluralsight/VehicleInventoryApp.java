@@ -45,6 +45,7 @@ public class VehicleInventoryApp {
                 }
             }
             else if(option==6){
+                System.out.println("Have a nice day!");
                 isRunning = false;
             }
             else{
